@@ -1,11 +1,11 @@
-using Microsoft.UI.Xaml;
+﻿using Microsoft.UI.Xaml;
 using System.Runtime.InteropServices;
 using WinRT.Interop;
 using WinUIEx;
 
 namespace CliAccountSwitcher.WinUI.Helpers;
 
-public static partial class WindowInteractionHelper
+public static partial class WindowHelper
 {
     private const uint DwmAttributeTransitionsForceDisabled = 3;
     private const uint DwmAttributeUseImmersiveDarkMode = 20;
@@ -29,6 +29,10 @@ public static partial class WindowInteractionHelper
 
     [LibraryImport("dwmapi.dll")]
     private static partial int DwmSetWindowAttribute(nint windowHandle, uint attributeIdentifier, ref uint attributeValue, uint attributeSize);
+
+    [LibraryImport("user32.dll")]
+    [return: MarshalAs(UnmanagedType.Bool)]
+    private static partial bool IsWindow(nint windowHandle);
 
     public static void ForceForegroundWindow(Window window)
     {
@@ -60,5 +64,17 @@ public static partial class WindowInteractionHelper
         var windowHandle = window.GetWindowHandle();
         var darkMode = 1u;
         DwmSetWindowAttribute(windowHandle, DwmAttributeUseImmersiveDarkMode, ref darkMode, sizeof(uint));
+    }
+
+    public static bool IsWindowAlive(Window? window)
+    {
+        if (window is null) return false;
+
+        try
+        {
+            var windowHandle = window.GetWindowHandle();
+            return windowHandle != 0 && IsWindow(windowHandle);
+        }
+        catch { return false; }
     }
 }

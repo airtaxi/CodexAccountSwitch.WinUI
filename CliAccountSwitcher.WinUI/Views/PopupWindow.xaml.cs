@@ -60,8 +60,8 @@ public sealed partial class PopupWindow : WindowEx, IDisposable
         ViewModel.PropertyChanged += OnDashboardPageViewModelPropertyChanged;
 
         _applicationThemeService.ApplyThemeToWindow(this);
-        WindowInteractionHelper.DisableWindowAnimations(this);
-        if (Content is FrameworkElement { RequestedTheme: ElementTheme.Dark }) WindowInteractionHelper.SetDarkModeWindow(this);
+        WindowHelper.DisableWindowAnimations(this);
+        if (Content is FrameworkElement { RequestedTheme: ElementTheme.Dark }) WindowHelper.SetDarkModeWindow(this);
 
         _applicationThemeService.ThemeChanged += OnApplicationThemeServiceThemeChanged;
         _localizationService.LanguageChanged += RefreshLocalizedText;
@@ -86,7 +86,7 @@ public sealed partial class PopupWindow : WindowEx, IDisposable
     {
         ResizeWindowToContent(RootGrid, true);
         MoveAboveTaskbarIcon();
-        WindowInteractionHelper.ForceForegroundWindow(this);
+        WindowHelper.ForceForegroundWindow(this);
     }
 
     public void ShowLoading(string message = null)

@@ -188,7 +188,7 @@ public partial class App : Application
         try
         {
             await InitializeTaskbarUsageWindowAsync();
-            oldTaskbarUsageWindow?.Close();
+            if (WindowHelper.IsWindowAlive(oldTaskbarUsageWindow)) oldTaskbarUsageWindow?.Close();
         }
         catch (Exception exception) { Services?.GetService<FileLogService>()?.WriteWarning(nameof(App), "Failed to reinitialize the taskbar usage window after preferred monitor change.", exception); }
     }
@@ -231,6 +231,8 @@ public partial class App : Application
             if (Services?.GetService<ApplicationSettings>()?.HideTaskbarUsage == false) await InitializeTaskbarUsageWindowAsync();
         }
         catch (Exception exception) { Services?.GetService<FileLogService>()?.WriteWarning(nameof(App), "Failed to recreate the taskbar usage window.", exception); }
+
+        if (WindowHelper.IsWindowAlive(taskbarUsageWindow)) taskbarUsageWindow?.Close();
     }
 
     private static void ReleaseTaskbarUsageWindow(TaskbarUsageWindow taskbarUsageWindow)
