@@ -68,8 +68,8 @@ public sealed partial class AboutPage : Page
             new("DevWinUI.Controls", "9.9.4", "MIT", "Mahdi Hosseini", "https://github.com/ghost1372/DevWinUI"),
             new("H.NotifyIcon.WinUI", "2.4.1", "MIT", "havendv", "https://github.com/HavenDV/H.NotifyIcon"),
             new("Microsoft.Extensions.DependencyInjection", "10.0.10", "MIT", "Microsoft", "https://github.com/dotnet/runtime"),
-            new("Microsoft.Windows.SDK.BuildTools", "10.0.28000.2270", windowsSoftwareDevelopmentKitLicenseText, "Microsoft", "https://aka.ms/WinSDKProjectURL"),
-            new("Microsoft.WindowsAppSDK", "2.2.0", "MIT", "Microsoft", "https://github.com/microsoft/windowsappsdk"),
+            new("Microsoft.Windows.SDK.BuildTools", "10.0.28000.2526", windowsSoftwareDevelopmentKitLicenseText, "Microsoft", "https://aka.ms/WinSDKProjectURL"),
+            new("Microsoft.WindowsAppSDK", "2.3.1", "MIT", "Microsoft", "https://github.com/microsoft/windowsappsdk"),
             new("WinUIEx", "2.9.2", "MIT", "Morten Nielsen", "https://dotmorten.github.io/WinUIEx")
         ];
     }
