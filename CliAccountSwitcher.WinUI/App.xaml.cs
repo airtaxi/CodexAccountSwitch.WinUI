@@ -152,7 +152,8 @@ public partial class App : Application
         var taskbarUsageWindow = new TaskbarUsageWindow();
         s_taskbarUsageWindow = taskbarUsageWindow;
         taskbarUsageWindow.Closed += OnTaskbarUsageWindowClosed;
-        taskbarUsageWindow.TaskbarContentHost.TaskbarWindowRecreated += OnTaskbarContentHostTaskbarWindowRecreated;
+        taskbarUsageWindow.TaskbarContentHost.TaskbarWindowRecreated += OnTaskbarContentHostTaskbarWindowChanged;
+        taskbarUsageWindow.TaskbarContentHost.TaskbarWindowDisappeared += OnTaskbarContentHostTaskbarWindowChanged;
 
         try
         {
@@ -217,7 +218,7 @@ public partial class App : Application
         if (sender is TaskbarUsageWindow taskbarUsageWindow) ReleaseTaskbarUsageWindow(taskbarUsageWindow);
     }
 
-    private static async void OnTaskbarContentHostTaskbarWindowRecreated(object sender, EventArgs eventArguments)
+    private static async void OnTaskbarContentHostTaskbarWindowChanged(object sender, EventArgs eventArguments)
     {
         if (!TaskbarHelper.IsTaskbarContentHostSupported) return;
 
@@ -235,7 +236,11 @@ public partial class App : Application
     private static void ReleaseTaskbarUsageWindow(TaskbarUsageWindow taskbarUsageWindow)
     {
         taskbarUsageWindow.Closed -= OnTaskbarUsageWindowClosed;
-        if (TaskbarHelper.IsTaskbarContentHostSupported) taskbarUsageWindow.TaskbarContentHost.TaskbarWindowRecreated -= OnTaskbarContentHostTaskbarWindowRecreated;
+        if (TaskbarHelper.IsTaskbarContentHostSupported)
+        {
+            taskbarUsageWindow.TaskbarContentHost.TaskbarWindowRecreated -= OnTaskbarContentHostTaskbarWindowChanged;
+            taskbarUsageWindow.TaskbarContentHost.TaskbarWindowDisappeared -= OnTaskbarContentHostTaskbarWindowChanged;
+        }
         if (ReferenceEquals(s_taskbarUsageWindow, taskbarUsageWindow)) s_taskbarUsageWindow = null;
     }
 
