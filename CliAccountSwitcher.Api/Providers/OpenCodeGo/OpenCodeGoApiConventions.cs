@@ -8,7 +8,7 @@ public static class OpenCodeGoApiConventions
 
     public static string AuthAuthorizePath => "/auth/authorize";
 
-    public static string UsagePagePathTemplate => "/workspace/{0}/go";
+    public static string UsageApiPath => "/zen/go/v1/usage";
 
     public static string KeysPagePathTemplate => "/workspace/{0}/keys";
 

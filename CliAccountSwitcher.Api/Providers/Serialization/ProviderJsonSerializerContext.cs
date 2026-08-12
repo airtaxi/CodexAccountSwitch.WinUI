@@ -1,6 +1,7 @@
 using CliAccountSwitcher.Api.Providers.Abstractions;
 using CliAccountSwitcher.Api.Providers.ClaudeCode.Models;
 using CliAccountSwitcher.Api.Providers.Codex.Models;
+using CliAccountSwitcher.Api.Providers.OpenCodeGo.Models.Usage;
 using CliAccountSwitcher.Api.Storage;
 using System.Text.Json.Serialization;
 
@@ -17,6 +18,7 @@ namespace CliAccountSwitcher.Api.Providers.Serialization;
 [JsonSerializable(typeof(StoredProviderAccount))]
 [JsonSerializable(typeof(ProviderUsageSnapshot))]
 [JsonSerializable(typeof(ProviderUsageWindow))]
+[JsonSerializable(typeof(OpenCodeGoUsageApiResponse))]
 [JsonSerializable(typeof(List<StoredProviderAccount>))]
 [JsonSerializable(typeof(Dictionary<string, string?>))]
 [JsonSerializable(typeof(string))]

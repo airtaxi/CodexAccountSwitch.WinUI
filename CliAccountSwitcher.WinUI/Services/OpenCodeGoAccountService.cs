@@ -37,7 +37,7 @@ public sealed class OpenCodeGoAccountService : AccountServiceBase<OpenCodeGoAcco
     {
         if (string.IsNullOrWhiteSpace(apiKey)) throw new ArgumentException("The OpenCode Go API key is required.", nameof(apiKey));
 
-        var openCodeGoUsageSnapshot = await FetchUsageSnapshotAsync(workspaceId, authCookie, cancellationToken);
+        var openCodeGoUsageSnapshot = await FetchUsageSnapshotAsync(apiKey, cancellationToken);
         var openCodeGoAccount = new OpenCodeGoAccount
         {
             ApiKey = apiKey.Trim(),
@@ -203,7 +203,7 @@ public sealed class OpenCodeGoAccountService : AccountServiceBase<OpenCodeGoAcco
 
     protected override async Task<ProviderUsageSnapshot> RefreshAccountUsageCoreAsync(OpenCodeGoAccount openCodeGoAccount, CancellationToken cancellationToken)
     {
-        var openCodeGoUsageSnapshot = await FetchUsageSnapshotAsync(openCodeGoAccount.WorkspaceId, openCodeGoAccount.AuthCookie, cancellationToken);
+        var openCodeGoUsageSnapshot = await FetchUsageSnapshotAsync(openCodeGoAccount.ApiKey, cancellationToken);
         openCodeGoAccount.LastOpenCodeGoUsageSnapshot = openCodeGoUsageSnapshot;
         openCodeGoAccount.LastUsageRefreshTime = DateTimeOffset.UtcNow;
         openCodeGoAccount.MarkAsValid();
@@ -212,10 +212,10 @@ public sealed class OpenCodeGoAccountService : AccountServiceBase<OpenCodeGoAcco
 
     protected override bool IsAccountExpiredException(Exception exception) => exception is OpenCodeGoAuthExpiredException;
 
-    private async Task<OpenCodeGoUsageSnapshot> FetchUsageSnapshotAsync(string workspaceId, string authCookie, CancellationToken cancellationToken)
+    private async Task<OpenCodeGoUsageSnapshot> FetchUsageSnapshotAsync(string apiKey, CancellationToken cancellationToken)
     {
-        if (string.IsNullOrWhiteSpace(workspaceId) || string.IsNullOrWhiteSpace(authCookie)) return new OpenCodeGoUsageSnapshot();
-        return await _openCodeGoUsageClient.GetUsageAsync(workspaceId, authCookie, cancellationToken);
+        if (string.IsNullOrWhiteSpace(apiKey)) return new OpenCodeGoUsageSnapshot();
+        return await _openCodeGoUsageClient.GetUsageAsync(apiKey, cancellationToken);
     }
 
     private static async Task WriteAuthJsonAtomicallyAsync(string apiKey, CancellationToken cancellationToken)
