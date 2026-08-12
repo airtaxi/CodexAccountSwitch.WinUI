@@ -436,6 +436,12 @@
   <data name="AddOpenCodeGoAccountDialog.Title" xml:space="preserve">
     <value>OpenCode Go 계정 추가</value>
   </data>
+  <data name="AddOpenCodeGoAccountDialog_ApiKeySelectorBarItem.Text" xml:space="preserve">
+    <value>API 키</value>
+  </data>
+  <data name="AddOpenCodeGoAccountDialog_CurrentAccountSelectorBarItem.Text" xml:space="preserve">
+    <value>현재 계정</value>
+  </data>
   <data name="AddZaiAccountDialog.CloseButtonText" xml:space="preserve">
     <value>닫기</value>
   </data>
@@ -844,29 +850,56 @@
   <data name="OllamaWebViewLoginAddAccountPage_TitleTextBlock.Text" xml:space="preserve">
     <value>Ollama 로그인</value>
   </data>
-  <data name="OpenCodeGoWebViewLoginAddAccountPage_AddButtonTextBlock.Text" xml:space="preserve">
-    <value>계정 추가</value>
+  <data name="OpenCodeGoApiKeyAddAccountPage_AddButtonTextBlock.Text" xml:space="preserve">
+    <value>추가</value>
   </data>
-  <data name="OpenCodeGoWebViewLoginAddAccountPage_AliasHeaderTextBlock.Text" xml:space="preserve">
-    <value>계정 라벨 (선택)</value>
+  <data name="OpenCodeGoApiKeyAddAccountPage_AliasHeaderTextBlock.Text" xml:space="preserve">
+    <value>라벨 (선택)</value>
   </data>
-  <data name="OpenCodeGoWebViewLoginAddAccountPage_AliasTextBox.PlaceholderText" xml:space="preserve">
-    <value>이 계정을 구분하기 위한 라벨 입력</value>
+  <data name="OpenCodeGoApiKeyAddAccountPage_AliasTextBox.PlaceholderText" xml:space="preserve">
+    <value>예: 개인</value>
   </data>
-  <data name="OpenCodeGoWebViewLoginAddAccountPage_CookieExpiryNoticeTextBlock.Text" xml:space="preserve">
-    <value>OpenCode Go에서 향후 API 키 기반 사용량 조회를 지원하면 이 앱도 해당 방식으로 전환될 예정입니다. 그 전까지는 로그인 세션을 통해 콘솔 대시보드에서 사용량을 읽어오며, 로그인은 1년 후 만료됩니다.</value>
+  <data name="OpenCodeGoApiKeyAddAccountPage_ApiKeyHeaderTextBlock.Text" xml:space="preserve">
+    <value>API 키</value>
   </data>
-  <data name="OpenCodeGoWebViewLoginAddAccountPage_DescriptionTextBlock.Text" xml:space="preserve">
-    <value>OpenCode Go 계정으로 로그인하세요. 로그인 후 첫 번째 API 키, 계정 이메일, 키 이름이 자동으로 추출됩니다. OpenCode Go API 키는 사용자가 직접 삭제하지 않는 한 만료되지 않습니다. 사용량 조회는 콘솔 로그인 세션을 사용하며, 최대 1년간 유효합니다.</value>
+  <data name="OpenCodeGoApiKeyAddAccountPage_ApiKeyPasswordBox.PlaceholderText" xml:space="preserve">
+    <value>OpenCode Go API 키 붙여넣기</value>
   </data>
-  <data name="OpenCodeGoWebViewLoginAddAccountPage_InitializingWebViewTextBlock.Text" xml:space="preserve">
-    <value>로그인 창 초기화 중...</value>
+  <data name="OpenCodeGoApiKeyAddAccountPage_DescriptionTextBlock.Text" xml:space="preserve">
+    <value>API 키를 붙여넣어 OpenCode Go 계정을 추가합니다. 여러 키를 구분하려면 선택 라벨을 입력하세요.</value>
   </data>
-  <data name="OpenCodeGoWebViewLoginAddAccountPage_ResetButtonTextBlock.Text" xml:space="preserve">
-    <value>로그인 재시도</value>
+  <data name="OpenCodeGoApiKeyAddAccountPage_ErrorInfoBar.Message" xml:space="preserve">
+    <value>API 키를 확인할 수 없습니다. 키를 확인하고 다시 시도하세요.</value>
   </data>
-  <data name="OpenCodeGoWebViewLoginAddAccountPage_TitleTextBlock.Text" xml:space="preserve">
-    <value>OpenCode Go 로그인</value>
+  <data name="OpenCodeGoApiKeyAddAccountPage_ErrorInfoBar.Title" xml:space="preserve">
+    <value>유효하지 않은 API 키</value>
+  </data>
+  <data name="OpenCodeGoApiKeyAddAccountPage_ErrorInfoBar_SubscriptionRequiredMessage" xml:space="preserve">
+    <value>이 API 키를 사용하려면 OpenCode Go 구독이 필요합니다. 구독 상태를 확인하고 다시 시도하세요.</value>
+  </data>
+  <data name="OpenCodeGoApiKeyAddAccountPage_ErrorInfoBar_SubscriptionRequiredTitle" xml:space="preserve">
+    <value>구독 필요</value>
+  </data>
+  <data name="OpenCodeGoApiKeyAddAccountPage_TitleTextBlock.Text" xml:space="preserve">
+    <value>API 키 입력</value>
+  </data>
+  <data name="OpenCodeGoCurrentAccountAddAccountPage_DescriptionTextBlock.Text" xml:space="preserve">
+    <value>OpenCode Go 인증 파일에 저장된 API 키를 가져옵니다.</value>
+  </data>
+  <data name="OpenCodeGoCurrentAccountAddAccountPage_ErrorInfoBar.Message" xml:space="preserve">
+    <value>OpenCode Go 인증 파일을 읽을 수 없거나 API 키가 유효하지 않습니다.</value>
+  </data>
+  <data name="OpenCodeGoCurrentAccountAddAccountPage_ErrorInfoBar.Title" xml:space="preserve">
+    <value>가져오기 실패</value>
+  </data>
+  <data name="OpenCodeGoCurrentAccountAddAccountPage_FilePathHeaderTextBlock.Text" xml:space="preserve">
+    <value>인증 파일</value>
+  </data>
+  <data name="OpenCodeGoCurrentAccountAddAccountPage_ImportButtonTextBlock.Text" xml:space="preserve">
+    <value>가져오기</value>
+  </data>
+  <data name="OpenCodeGoCurrentAccountAddAccountPage_TitleTextBlock.Text" xml:space="preserve">
+    <value>OpenCode Go에서 가져오기</value>
   </data>
   <data name="PrimaryUsageAverageRateWarningTextBlock.Text" xml:space="preserve">
     <value>평균 속도 초과</value>

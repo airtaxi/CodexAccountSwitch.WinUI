@@ -1,5 +1,6 @@
 using CliAccountSwitcher.Api.Providers.Abstractions;
 using CliAccountSwitcher.Api.Providers.OpenCodeGo;
+using CliAccountSwitcher.Api.Providers.OpenCodeGo.Infrastructure;
 using CliAccountSwitcher.Api.Providers.OpenCodeGo.Models;
 using CliAccountSwitcher.Api.Providers.OpenCodeGo.Models.Usage;
 using CliAccountSwitcher.WinUI.Helpers;
@@ -13,8 +14,6 @@ public sealed class OpenCodeGoAccountService : AccountServiceBase<OpenCodeGoAcco
     private readonly SemaphoreSlim _saveSemaphore = new(1, 1);
     private readonly HttpClient _httpClient;
     private readonly OpenCodeGoUsageClient _openCodeGoUsageClient;
-    private readonly OpenCodeGoKeysClient _openCodeGoKeysClient;
-    private readonly OpenCodeGoAuthValidator _openCodeGoAuthValidator;
     private string _activeAccountIdentifier = "";
     private bool _disposed;
 
@@ -23,8 +22,6 @@ public sealed class OpenCodeGoAccountService : AccountServiceBase<OpenCodeGoAcco
     {
         _httpClient = new HttpClient { Timeout = TimeSpan.FromSeconds(30) };
         _openCodeGoUsageClient = new OpenCodeGoUsageClient(_httpClient);
-        _openCodeGoKeysClient = new OpenCodeGoKeysClient(_httpClient);
-        _openCodeGoAuthValidator = new OpenCodeGoAuthValidator(_httpClient);
     }
 
     public override CliProviderKind ProviderKind => CliProviderKind.OpenCodeGo;
@@ -33,7 +30,7 @@ public sealed class OpenCodeGoAccountService : AccountServiceBase<OpenCodeGoAcco
 
     public override bool IsRenameSupported => true;
 
-    public async Task<OpenCodeGoAccount> AddAccountFromWebViewAsync(string authCookie, string workspaceId, string apiKey, string apiKeyDisplayName, string emailAddress, string customAlias, CancellationToken cancellationToken = default)
+    public async Task<OpenCodeGoAccount> AddApiKeyAsync(string apiKey, string customAlias, CancellationToken cancellationToken = default)
     {
         if (string.IsNullOrWhiteSpace(apiKey)) throw new ArgumentException("The OpenCode Go API key is required.", nameof(apiKey));
 
@@ -41,14 +38,9 @@ public sealed class OpenCodeGoAccountService : AccountServiceBase<OpenCodeGoAcco
         var openCodeGoAccount = new OpenCodeGoAccount
         {
             ApiKey = apiKey.Trim(),
-            AuthCookie = authCookie,
-            WorkspaceId = workspaceId,
-            ApiKeyDisplayName = apiKeyDisplayName,
-            EmailAddress = emailAddress,
             CustomAlias = customAlias.Trim(),
             LastOpenCodeGoUsageSnapshot = openCodeGoUsageSnapshot,
-            LastUsageRefreshTime = DateTimeOffset.UtcNow,
-            AuthCookieObtainedTime = DateTimeOffset.UtcNow
+            LastUsageRefreshTime = DateTimeOffset.UtcNow
         };
         openCodeGoAccount.MarkAsValid();
 
@@ -60,14 +52,12 @@ public sealed class OpenCodeGoAccountService : AccountServiceBase<OpenCodeGoAcco
         return openCodeGoAccount;
     }
 
-    public async Task<OpenCodeGoKeyInfo> TryFetchApiKeyAsync(string authCookie, string workspaceId, CancellationToken cancellationToken = default)
+    public async Task<OpenCodeGoAccount> AddCurrentAccountAsync(CancellationToken cancellationToken = default)
     {
-        return await _openCodeGoKeysClient.GetFirstApiKeyAsync(workspaceId, authCookie, cancellationToken);
+        var authFileInfo = await OpenCodeGoAuthFileReader.LoadAsync(Constants.OpenCodeGoAuthFilePath, cancellationToken);
+        if (!authFileInfo.IsValid) throw new InvalidOperationException("The OpenCode Go auth file does not contain an API key.");
+        return await AddApiKeyAsync(authFileInfo.ApiKey, "", cancellationToken);
     }
-
-    public async Task<bool> IsAuthCookieValidAsync(string authCookie, CancellationToken cancellationToken = default) => await _openCodeGoAuthValidator.IsAuthCookieValidAsync(authCookie, cancellationToken);
-
-    public async Task<string> GetAccountEmailAsync(string authCookie, CancellationToken cancellationToken = default) => await _openCodeGoAuthValidator.GetAccountEmailAsync(authCookie, cancellationToken);
 
     public override async Task RenameAccountAsync(string accountIdentifier, string customAlias, CancellationToken cancellationToken = default)
     {
@@ -148,7 +138,7 @@ public sealed class OpenCodeGoAccountService : AccountServiceBase<OpenCodeGoAcco
         AccountDetailText = BuildApiKeyPreview(openCodeGoAccount.ApiKey),
         CustomAlias = openCodeGoAccount.CustomAlias,
         DisplayName = openCodeGoAccount.DisplayName,
-        EmailAddress = openCodeGoAccount.EmailAddress,
+        EmailAddress = "",
         PlanType = openCodeGoAccount.PlanType,
         IsActive = openCodeGoAccount.IsActive,
         IsTokenExpired = openCodeGoAccount.IsTokenExpired,
@@ -210,7 +200,7 @@ public sealed class OpenCodeGoAccountService : AccountServiceBase<OpenCodeGoAcco
         return CreateProviderUsageSnapshot(openCodeGoUsageSnapshot);
     }
 
-    protected override bool IsAccountExpiredException(Exception exception) => exception is OpenCodeGoAuthExpiredException;
+    protected override bool IsAccountExpiredException(Exception exception) => exception is OpenCodeGoAuthExpiredException or OpenCodeGoSubscriptionRequiredException;
 
     private async Task<OpenCodeGoUsageSnapshot> FetchUsageSnapshotAsync(string apiKey, CancellationToken cancellationToken)
     {

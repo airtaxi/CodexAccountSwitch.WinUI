@@ -436,6 +436,12 @@
   <data name="AddOpenCodeGoAccountDialog.Title" xml:space="preserve">
     <value>Add OpenCode Go Account</value>
   </data>
+  <data name="AddOpenCodeGoAccountDialog_ApiKeySelectorBarItem.Text" xml:space="preserve">
+    <value>API Key</value>
+  </data>
+  <data name="AddOpenCodeGoAccountDialog_CurrentAccountSelectorBarItem.Text" xml:space="preserve">
+    <value>Current Account</value>
+  </data>
   <data name="AddZaiAccountDialog.CloseButtonText" xml:space="preserve">
     <value>Close</value>
   </data>
@@ -844,29 +850,56 @@
   <data name="OllamaWebViewLoginAddAccountPage_TitleTextBlock.Text" xml:space="preserve">
     <value>Sign in to Ollama</value>
   </data>
-  <data name="OpenCodeGoWebViewLoginAddAccountPage_AddButtonTextBlock.Text" xml:space="preserve">
-    <value>Add Account</value>
+  <data name="OpenCodeGoApiKeyAddAccountPage_AddButtonTextBlock.Text" xml:space="preserve">
+    <value>Add</value>
   </data>
-  <data name="OpenCodeGoWebViewLoginAddAccountPage_AliasHeaderTextBlock.Text" xml:space="preserve">
-    <value>Account Label (optional)</value>
+  <data name="OpenCodeGoApiKeyAddAccountPage_AliasHeaderTextBlock.Text" xml:space="preserve">
+    <value>Label (optional)</value>
   </data>
-  <data name="OpenCodeGoWebViewLoginAddAccountPage_AliasTextBox.PlaceholderText" xml:space="preserve">
-    <value>Enter a label to distinguish this account</value>
+  <data name="OpenCodeGoApiKeyAddAccountPage_AliasTextBox.PlaceholderText" xml:space="preserve">
+    <value>e.g. Personal</value>
   </data>
-  <data name="OpenCodeGoWebViewLoginAddAccountPage_CookieExpiryNoticeTextBlock.Text" xml:space="preserve">
-    <value>If OpenCode Go adds API-key-based usage tracking in the future, this app will switch to that method. Until then, usage is read from the console dashboard using the login session, which expires after 1 year.</value>
+  <data name="OpenCodeGoApiKeyAddAccountPage_ApiKeyHeaderTextBlock.Text" xml:space="preserve">
+    <value>API key</value>
   </data>
-  <data name="OpenCodeGoWebViewLoginAddAccountPage_DescriptionTextBlock.Text" xml:space="preserve">
-    <value>Sign in with your OpenCode Go account. After login, the first API key, account email, and key name will be extracted automatically. OpenCode Go API keys do not expire unless you delete them manually. Usage tracking requires the console login session, which is valid for up to 1 year.</value>
+  <data name="OpenCodeGoApiKeyAddAccountPage_ApiKeyPasswordBox.PlaceholderText" xml:space="preserve">
+    <value>Paste your OpenCode Go API key</value>
   </data>
-  <data name="OpenCodeGoWebViewLoginAddAccountPage_InitializingWebViewTextBlock.Text" xml:space="preserve">
-    <value>Initializing login window...</value>
+  <data name="OpenCodeGoApiKeyAddAccountPage_DescriptionTextBlock.Text" xml:space="preserve">
+    <value>Add an OpenCode Go account by pasting an API key. An optional label helps distinguish multiple keys.</value>
   </data>
-  <data name="OpenCodeGoWebViewLoginAddAccountPage_ResetButtonTextBlock.Text" xml:space="preserve">
-    <value>Reset Login</value>
+  <data name="OpenCodeGoApiKeyAddAccountPage_ErrorInfoBar.Message" xml:space="preserve">
+    <value>The API key could not be verified. Check the key and try again.</value>
   </data>
-  <data name="OpenCodeGoWebViewLoginAddAccountPage_TitleTextBlock.Text" xml:space="preserve">
-    <value>Sign in to OpenCode Go</value>
+  <data name="OpenCodeGoApiKeyAddAccountPage_ErrorInfoBar.Title" xml:space="preserve">
+    <value>Invalid API key</value>
+  </data>
+  <data name="OpenCodeGoApiKeyAddAccountPage_ErrorInfoBar_SubscriptionRequiredMessage" xml:space="preserve">
+    <value>The OpenCode Go subscription is required to use this API key. Check your subscription and try again.</value>
+  </data>
+  <data name="OpenCodeGoApiKeyAddAccountPage_ErrorInfoBar_SubscriptionRequiredTitle" xml:space="preserve">
+    <value>Subscription required</value>
+  </data>
+  <data name="OpenCodeGoApiKeyAddAccountPage_TitleTextBlock.Text" xml:space="preserve">
+    <value>Enter API key</value>
+  </data>
+  <data name="OpenCodeGoCurrentAccountAddAccountPage_DescriptionTextBlock.Text" xml:space="preserve">
+    <value>Imports the API key stored in the OpenCode Go auth file.</value>
+  </data>
+  <data name="OpenCodeGoCurrentAccountAddAccountPage_ErrorInfoBar.Message" xml:space="preserve">
+    <value>The OpenCode Go auth file could not be read or the API key is invalid.</value>
+  </data>
+  <data name="OpenCodeGoCurrentAccountAddAccountPage_ErrorInfoBar.Title" xml:space="preserve">
+    <value>Import failed</value>
+  </data>
+  <data name="OpenCodeGoCurrentAccountAddAccountPage_FilePathHeaderTextBlock.Text" xml:space="preserve">
+    <value>Auth file</value>
+  </data>
+  <data name="OpenCodeGoCurrentAccountAddAccountPage_ImportButtonTextBlock.Text" xml:space="preserve">
+    <value>Import</value>
+  </data>
+  <data name="OpenCodeGoCurrentAccountAddAccountPage_TitleTextBlock.Text" xml:space="preserve">
+    <value>Import from OpenCode Go</value>
   </data>
   <data name="PrimaryUsageAverageRateWarningTextBlock.Text" xml:space="preserve">
     <value>Over average pace</value>

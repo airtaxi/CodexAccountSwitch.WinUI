@@ -436,6 +436,12 @@
   <data name="AddOpenCodeGoAccountDialog.Title" xml:space="preserve">
     <value>添加 OpenCode Go 账户</value>
   </data>
+  <data name="AddOpenCodeGoAccountDialog_ApiKeySelectorBarItem.Text" xml:space="preserve">
+    <value>API 密钥</value>
+  </data>
+  <data name="AddOpenCodeGoAccountDialog_CurrentAccountSelectorBarItem.Text" xml:space="preserve">
+    <value>当前账户</value>
+  </data>
   <data name="AddZaiAccountDialog.CloseButtonText" xml:space="preserve">
     <value>关闭</value>
   </data>
@@ -844,29 +850,56 @@
   <data name="OllamaWebViewLoginAddAccountPage_TitleTextBlock.Text" xml:space="preserve">
     <value>登录 Ollama</value>
   </data>
-  <data name="OpenCodeGoWebViewLoginAddAccountPage_AddButtonTextBlock.Text" xml:space="preserve">
-    <value>添加账户</value>
+  <data name="OpenCodeGoApiKeyAddAccountPage_AddButtonTextBlock.Text" xml:space="preserve">
+    <value>添加</value>
   </data>
-  <data name="OpenCodeGoWebViewLoginAddAccountPage_AliasHeaderTextBlock.Text" xml:space="preserve">
-    <value>账户标签（可选）</value>
+  <data name="OpenCodeGoApiKeyAddAccountPage_AliasHeaderTextBlock.Text" xml:space="preserve">
+    <value>标签（可选）</value>
   </data>
-  <data name="OpenCodeGoWebViewLoginAddAccountPage_AliasTextBox.PlaceholderText" xml:space="preserve">
-    <value>输入标签以区分此账户</value>
+  <data name="OpenCodeGoApiKeyAddAccountPage_AliasTextBox.PlaceholderText" xml:space="preserve">
+    <value>例如：个人</value>
   </data>
-  <data name="OpenCodeGoWebViewLoginAddAccountPage_CookieExpiryNoticeTextBlock.Text" xml:space="preserve">
-    <value>如果 OpenCode Go 未来新增 API 密钥使用量追踪，此应用将切换至该方式。在此之前，使用量将通过登录会话从控制台仪表板读取，会话将在 1 年后过期。</value>
+  <data name="OpenCodeGoApiKeyAddAccountPage_ApiKeyHeaderTextBlock.Text" xml:space="preserve">
+    <value>API 密钥</value>
   </data>
-  <data name="OpenCodeGoWebViewLoginAddAccountPage_DescriptionTextBlock.Text" xml:space="preserve">
-    <value>使用您的 OpenCode Go 账户登录。登录后，将自动提取第一个 API 密钥、账户邮箱和密钥名称。OpenCode Go API 密钥不会过期，除非您手动删除。使用量追踪需要控制台登录会话，有效期最长为 1 年。</value>
+  <data name="OpenCodeGoApiKeyAddAccountPage_ApiKeyPasswordBox.PlaceholderText" xml:space="preserve">
+    <value>粘贴您的 OpenCode Go API 密钥</value>
   </data>
-  <data name="OpenCodeGoWebViewLoginAddAccountPage_InitializingWebViewTextBlock.Text" xml:space="preserve">
-    <value>正在初始化登录窗口...</value>
+  <data name="OpenCodeGoApiKeyAddAccountPage_DescriptionTextBlock.Text" xml:space="preserve">
+    <value>粘贴 API 密钥以添加 OpenCode Go 账户。输入可选标签以区分多个密钥。</value>
   </data>
-  <data name="OpenCodeGoWebViewLoginAddAccountPage_ResetButtonTextBlock.Text" xml:space="preserve">
-    <value>重新登录</value>
+  <data name="OpenCodeGoApiKeyAddAccountPage_ErrorInfoBar.Message" xml:space="preserve">
+    <value>无法验证 API 密钥。请检查密钥后重试。</value>
   </data>
-  <data name="OpenCodeGoWebViewLoginAddAccountPage_TitleTextBlock.Text" xml:space="preserve">
-    <value>登录 OpenCode Go</value>
+  <data name="OpenCodeGoApiKeyAddAccountPage_ErrorInfoBar.Title" xml:space="preserve">
+    <value>API 密钥无效</value>
+  </data>
+  <data name="OpenCodeGoApiKeyAddAccountPage_ErrorInfoBar_SubscriptionRequiredMessage" xml:space="preserve">
+    <value>使用此 API 密钥需要 OpenCode Go 订阅。请检查订阅状态后重试。</value>
+  </data>
+  <data name="OpenCodeGoApiKeyAddAccountPage_ErrorInfoBar_SubscriptionRequiredTitle" xml:space="preserve">
+    <value>需要订阅</value>
+  </data>
+  <data name="OpenCodeGoApiKeyAddAccountPage_TitleTextBlock.Text" xml:space="preserve">
+    <value>输入 API 密钥</value>
+  </data>
+  <data name="OpenCodeGoCurrentAccountAddAccountPage_DescriptionTextBlock.Text" xml:space="preserve">
+    <value>导入存储在 OpenCode Go 认证文件中的 API 密钥。</value>
+  </data>
+  <data name="OpenCodeGoCurrentAccountAddAccountPage_ErrorInfoBar.Message" xml:space="preserve">
+    <value>无法读取 OpenCode Go 认证文件或 API 密钥无效。</value>
+  </data>
+  <data name="OpenCodeGoCurrentAccountAddAccountPage_ErrorInfoBar.Title" xml:space="preserve">
+    <value>导入失败</value>
+  </data>
+  <data name="OpenCodeGoCurrentAccountAddAccountPage_FilePathHeaderTextBlock.Text" xml:space="preserve">
+    <value>认证文件</value>
+  </data>
+  <data name="OpenCodeGoCurrentAccountAddAccountPage_ImportButtonTextBlock.Text" xml:space="preserve">
+    <value>导入</value>
+  </data>
+  <data name="OpenCodeGoCurrentAccountAddAccountPage_TitleTextBlock.Text" xml:space="preserve">
+    <value>从 OpenCode Go 导入</value>
   </data>
   <data name="PrimaryUsageAverageRateWarningTextBlock.Text" xml:space="preserve">
     <value>超过平均速度</value>

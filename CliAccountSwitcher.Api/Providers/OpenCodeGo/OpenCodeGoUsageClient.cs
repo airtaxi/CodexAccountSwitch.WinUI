@@ -19,7 +19,7 @@ public sealed class OpenCodeGoUsageClient(HttpClient httpClient)
 
         using var httpResponseMessage = await httpClient.SendAsync(httpRequestMessage, cancellationToken);
         if (httpResponseMessage.StatusCode is HttpStatusCode.Unauthorized) throw new OpenCodeGoAuthExpiredException("The OpenCode Go API key is invalid or expired.");
-        if (httpResponseMessage.StatusCode is HttpStatusCode.Forbidden) throw new OpenCodeGoAuthExpiredException("The OpenCode Go subscription is required.");
+        if (httpResponseMessage.StatusCode is HttpStatusCode.Forbidden) throw new OpenCodeGoSubscriptionRequiredException("The OpenCode Go subscription is required.");
 
         httpResponseMessage.EnsureSuccessStatusCode();
         var responseText = await httpResponseMessage.Content.ReadAsStringAsync(cancellationToken);

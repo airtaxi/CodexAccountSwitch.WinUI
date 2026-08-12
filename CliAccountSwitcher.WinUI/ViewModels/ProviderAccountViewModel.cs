@@ -39,7 +39,7 @@ public sealed partial class ProviderAccountViewModel(ProviderAccount providerAcc
 
     public string EmailAddress => ProviderAccount.EmailAddress;
 
-    public bool IsEmailAddressVisible => ProviderKind != CliProviderKind.Zai;
+    public bool IsEmailAddressVisible => ProviderKind is not (CliProviderKind.Zai or CliProviderKind.OpenCodeGo);
 
     public bool IsMonthlyUsageVisible => ProviderKind == CliProviderKind.OpenCodeGo || (ProviderKind == CliProviderKind.Zai && ProviderUsageSnapshot.Monthly.RemainingPercentage >= 0);
 

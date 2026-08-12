@@ -124,7 +124,7 @@ public sealed partial class DashboardPageViewModel : ObservableObject, IDisposab
     [ObservableProperty]
     public partial bool HasNoLowUsageAccounts { get; set; } = true;
 
-    public bool IsActiveAccountEmailAddressVisible => _applicationSettings.SelectedProviderKind != CliProviderKind.Zai;
+    public bool IsActiveAccountEmailAddressVisible => _applicationSettings.SelectedProviderKind is not (CliProviderKind.Zai or CliProviderKind.OpenCodeGo);
 
     public string RefreshAllAccountsLoadingMessage => _localizationService.GetLocalizedString("AccountsPage_RefreshAllAccountsLoadingMessage");
 

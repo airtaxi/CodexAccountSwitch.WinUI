@@ -436,6 +436,12 @@
   <data name="AddOpenCodeGoAccountDialog.Title" xml:space="preserve">
     <value>OpenCode Go アカウントを追加</value>
   </data>
+  <data name="AddOpenCodeGoAccountDialog_ApiKeySelectorBarItem.Text" xml:space="preserve">
+    <value>API キー</value>
+  </data>
+  <data name="AddOpenCodeGoAccountDialog_CurrentAccountSelectorBarItem.Text" xml:space="preserve">
+    <value>現在のアカウント</value>
+  </data>
   <data name="AddZaiAccountDialog.CloseButtonText" xml:space="preserve">
     <value>閉じる</value>
   </data>
@@ -844,29 +850,56 @@
   <data name="OllamaWebViewLoginAddAccountPage_TitleTextBlock.Text" xml:space="preserve">
     <value>Ollama にログイン</value>
   </data>
-  <data name="OpenCodeGoWebViewLoginAddAccountPage_AddButtonTextBlock.Text" xml:space="preserve">
-    <value>アカウントを追加</value>
+  <data name="OpenCodeGoApiKeyAddAccountPage_AddButtonTextBlock.Text" xml:space="preserve">
+    <value>追加</value>
   </data>
-  <data name="OpenCodeGoWebViewLoginAddAccountPage_AliasHeaderTextBlock.Text" xml:space="preserve">
-    <value>アカウトラベル（任意）</value>
+  <data name="OpenCodeGoApiKeyAddAccountPage_AliasHeaderTextBlock.Text" xml:space="preserve">
+    <value>ラベル (任意)</value>
   </data>
-  <data name="OpenCodeGoWebViewLoginAddAccountPage_AliasTextBox.PlaceholderText" xml:space="preserve">
-    <value>このアカウントを区別するためのラベルを入力</value>
+  <data name="OpenCodeGoApiKeyAddAccountPage_AliasTextBox.PlaceholderText" xml:space="preserve">
+    <value>例: 個人</value>
   </data>
-  <data name="OpenCodeGoWebViewLoginAddAccountPage_CookieExpiryNoticeTextBlock.Text" xml:space="preserve">
-    <value>OpenCode Go が将来的に API キーベースの使用量追跡を追加した場合、このアプリはその方式に切り替えます。それまでは、ログインセッションを使用してコンソールダッシュボードから使用量を読み取り、セッションは 1 年後に期限切れになります。</value>
+  <data name="OpenCodeGoApiKeyAddAccountPage_ApiKeyHeaderTextBlock.Text" xml:space="preserve">
+    <value>API キー</value>
   </data>
-  <data name="OpenCodeGoWebViewLoginAddAccountPage_DescriptionTextBlock.Text" xml:space="preserve">
-    <value>OpenCode Go アカウントでサインインしてください。ログイン後、最初の API キー、アカウントのメールアドレス、キー名が自動的に抽出されます。OpenCode Go API キーは手動で削除しない限り期限切れになりません。使用量の追跡にはコンソールログインセッションが必要で、最大 1 年間有効です。</value>
+  <data name="OpenCodeGoApiKeyAddAccountPage_ApiKeyPasswordBox.PlaceholderText" xml:space="preserve">
+    <value>OpenCode Go API キーを貼り付け</value>
   </data>
-  <data name="OpenCodeGoWebViewLoginAddAccountPage_InitializingWebViewTextBlock.Text" xml:space="preserve">
-    <value>ログインウィンドウを初期化中...</value>
+  <data name="OpenCodeGoApiKeyAddAccountPage_DescriptionTextBlock.Text" xml:space="preserve">
+    <value>API キーを貼り付けて OpenCode Go アカウントを追加します。複数のキーを区別するには任意のラベルを入力してください。</value>
   </data>
-  <data name="OpenCodeGoWebViewLoginAddAccountPage_ResetButtonTextBlock.Text" xml:space="preserve">
-    <value>ログインやり直し</value>
+  <data name="OpenCodeGoApiKeyAddAccountPage_ErrorInfoBar.Message" xml:space="preserve">
+    <value>API キーを検証できませんでした。キーを確認して再試行してください。</value>
   </data>
-  <data name="OpenCodeGoWebViewLoginAddAccountPage_TitleTextBlock.Text" xml:space="preserve">
-    <value>OpenCode Go にサインイン</value>
+  <data name="OpenCodeGoApiKeyAddAccountPage_ErrorInfoBar.Title" xml:space="preserve">
+    <value>無効な API キー</value>
+  </data>
+  <data name="OpenCodeGoApiKeyAddAccountPage_ErrorInfoBar_SubscriptionRequiredMessage" xml:space="preserve">
+    <value>この API キーを使用するには OpenCode Go サブスクリプションが必要です。サブスクリプションの状態を確認して再試行してください。</value>
+  </data>
+  <data name="OpenCodeGoApiKeyAddAccountPage_ErrorInfoBar_SubscriptionRequiredTitle" xml:space="preserve">
+    <value>サブスクリプションが必要です</value>
+  </data>
+  <data name="OpenCodeGoApiKeyAddAccountPage_TitleTextBlock.Text" xml:space="preserve">
+    <value>API キーを入力</value>
+  </data>
+  <data name="OpenCodeGoCurrentAccountAddAccountPage_DescriptionTextBlock.Text" xml:space="preserve">
+    <value>OpenCode Go 認証ファイルに保存されている API キーをインポートします。</value>
+  </data>
+  <data name="OpenCodeGoCurrentAccountAddAccountPage_ErrorInfoBar.Message" xml:space="preserve">
+    <value>OpenCode Go 認証ファイルを読み取れないか、API キーが無効です。</value>
+  </data>
+  <data name="OpenCodeGoCurrentAccountAddAccountPage_ErrorInfoBar.Title" xml:space="preserve">
+    <value>インポートに失敗しました</value>
+  </data>
+  <data name="OpenCodeGoCurrentAccountAddAccountPage_FilePathHeaderTextBlock.Text" xml:space="preserve">
+    <value>認証ファイル</value>
+  </data>
+  <data name="OpenCodeGoCurrentAccountAddAccountPage_ImportButtonTextBlock.Text" xml:space="preserve">
+    <value>インポート</value>
+  </data>
+  <data name="OpenCodeGoCurrentAccountAddAccountPage_TitleTextBlock.Text" xml:space="preserve">
+    <value>OpenCode Go からインポート</value>
   </data>
   <data name="PrimaryUsageAverageRateWarningTextBlock.Text" xml:space="preserve">
     <value>平均超過ペース</value>
