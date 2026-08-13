@@ -6,6 +6,7 @@ using CliAccountSwitcher.WinUI.Services;
 using CliAccountSwitcher.WinUI.ViewModels;
 using CliAccountSwitcher.WinUI.Views;
 using CommunityToolkit.Mvvm.Messaging;
+using Deskband11Lib.WinUI;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Dispatching;
 using Microsoft.UI.Xaml;
@@ -151,9 +152,7 @@ public partial class App : Application
 
         var taskbarUsageWindow = new TaskbarUsageWindow();
         s_taskbarUsageWindow = taskbarUsageWindow;
-        taskbarUsageWindow.Closed += OnTaskbarUsageWindowClosed;
-        taskbarUsageWindow.TaskbarContentHost.TaskbarWindowRecreated += OnTaskbarContentHostTaskbarWindowChanged;
-        taskbarUsageWindow.TaskbarContentHost.TaskbarWindowDisappeared += OnTaskbarContentHostTaskbarWindowChanged;
+        taskbarUsageWindow.TaskbarContentHost.TaskbarWindowRecreationRequired += OnTaskbarContentHostTaskbarWindowRecreationRequired;
 
         try
         {
@@ -188,7 +187,7 @@ public partial class App : Application
         try
         {
             await InitializeTaskbarUsageWindowAsync();
-            if (WindowHelper.IsWindowAlive(oldTaskbarUsageWindow)) oldTaskbarUsageWindow?.Close();
+            if (oldTaskbarUsageWindow?.IsWindowAlive() == true) oldTaskbarUsageWindow.Close();
         }
         catch (Exception exception) { Services?.GetService<FileLogService>()?.WriteWarning(nameof(App), "Failed to reinitialize the taskbar usage window after preferred monitor change.", exception); }
     }
@@ -213,12 +212,7 @@ public partial class App : Application
         s_mainWindow.BringToFront();
     }
 
-    private static void OnTaskbarUsageWindowClosed(object sender, WindowEventArgs windowEventArguments)
-    {
-        if (sender is TaskbarUsageWindow taskbarUsageWindow) ReleaseTaskbarUsageWindow(taskbarUsageWindow);
-    }
-
-    private static async void OnTaskbarContentHostTaskbarWindowChanged(object sender, EventArgs eventArguments)
+    private static async void OnTaskbarContentHostTaskbarWindowRecreationRequired(object sender, EventArgs eventArguments)
     {
         if (!TaskbarHelper.IsTaskbarContentHostSupported) return;
 
@@ -232,17 +226,12 @@ public partial class App : Application
         }
         catch (Exception exception) { Services?.GetService<FileLogService>()?.WriteWarning(nameof(App), "Failed to recreate the taskbar usage window.", exception); }
 
-        if (WindowHelper.IsWindowAlive(taskbarUsageWindow)) taskbarUsageWindow?.Close();
+        if (taskbarUsageWindow?.IsWindowAlive() == true) taskbarUsageWindow.Close();
     }
 
     private static void ReleaseTaskbarUsageWindow(TaskbarUsageWindow taskbarUsageWindow)
     {
-        taskbarUsageWindow.Closed -= OnTaskbarUsageWindowClosed;
-        if (TaskbarHelper.IsTaskbarContentHostSupported)
-        {
-            taskbarUsageWindow.TaskbarContentHost.TaskbarWindowRecreated -= OnTaskbarContentHostTaskbarWindowChanged;
-            taskbarUsageWindow.TaskbarContentHost.TaskbarWindowDisappeared -= OnTaskbarContentHostTaskbarWindowChanged;
-        }
+        if (TaskbarHelper.IsTaskbarContentHostSupported) taskbarUsageWindow.TaskbarContentHost.Dispose();
         if (ReferenceEquals(s_taskbarUsageWindow, taskbarUsageWindow)) s_taskbarUsageWindow = null;
     }
 

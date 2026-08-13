@@ -30,10 +30,6 @@ public static partial class WindowHelper
     [LibraryImport("dwmapi.dll")]
     private static partial int DwmSetWindowAttribute(nint windowHandle, uint attributeIdentifier, ref uint attributeValue, uint attributeSize);
 
-    [LibraryImport("user32.dll")]
-    [return: MarshalAs(UnmanagedType.Bool)]
-    private static partial bool IsWindow(nint windowHandle);
-
     public static void ForceForegroundWindow(Window window)
     {
         var windowHandle = window.GetWindowHandle();
@@ -64,17 +60,5 @@ public static partial class WindowHelper
         var windowHandle = window.GetWindowHandle();
         var darkMode = 1u;
         DwmSetWindowAttribute(windowHandle, DwmAttributeUseImmersiveDarkMode, ref darkMode, sizeof(uint));
-    }
-
-    public static bool IsWindowAlive(Window? window)
-    {
-        if (window is null) return false;
-
-        try
-        {
-            var windowHandle = window.GetWindowHandle();
-            return windowHandle != 0 && IsWindow(windowHandle);
-        }
-        catch { return false; }
     }
 }
