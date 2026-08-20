@@ -1,4 +1,5 @@
 using CliAccountSwitcher.Api.Providers.Abstractions;
+using CliAccountSwitcher.WinUI.Helpers;
 using CliAccountSwitcher.WinUI.Managers;
 using CliAccountSwitcher.WinUI.Models;
 using CliAccountSwitcher.WinUI.Services;
@@ -74,13 +75,13 @@ public sealed partial class TaskbarUsageControlViewModel : ObservableObject, IDi
 
     public bool IsSecondaryUsageBelowPacemaker => SecondaryUsagePacemakerDifferencePercentage < 0;
 
-    public int PrimaryUsageRemainingProgressBarZIndex => GetRemainingProgressBarZIndex(PrimaryUsageRemainingPercentage, PrimaryUsagePacemakerPercentage, PrimaryUsagePacemakerDifferencePercentage);
+    public int PrimaryUsageRemainingProgressBarZIndex => UsagePacemakerHelper.GetRemainingProgressBarZIndex(PrimaryUsageRemainingPercentage, PrimaryUsagePacemakerPercentage, PrimaryUsagePacemakerDifferencePercentage);
 
-    public int PrimaryUsagePacemakerProgressBarZIndex => GetPacemakerProgressBarZIndex(PrimaryUsageRemainingPercentage, PrimaryUsagePacemakerPercentage, PrimaryUsagePacemakerDifferencePercentage);
+    public int PrimaryUsagePacemakerProgressBarZIndex => UsagePacemakerHelper.GetPacemakerProgressBarZIndex(PrimaryUsageRemainingPercentage, PrimaryUsagePacemakerPercentage, PrimaryUsagePacemakerDifferencePercentage);
 
-    public int SecondaryUsageRemainingProgressBarZIndex => GetRemainingProgressBarZIndex(SecondaryUsageRemainingPercentage, SecondaryUsagePacemakerPercentage, SecondaryUsagePacemakerDifferencePercentage);
+    public int SecondaryUsageRemainingProgressBarZIndex => UsagePacemakerHelper.GetRemainingProgressBarZIndex(SecondaryUsageRemainingPercentage, SecondaryUsagePacemakerPercentage, SecondaryUsagePacemakerDifferencePercentage);
 
-    public int SecondaryUsagePacemakerProgressBarZIndex => GetPacemakerProgressBarZIndex(SecondaryUsageRemainingPercentage, SecondaryUsagePacemakerPercentage, SecondaryUsagePacemakerDifferencePercentage);
+    public int SecondaryUsagePacemakerProgressBarZIndex => UsagePacemakerHelper.GetPacemakerProgressBarZIndex(SecondaryUsageRemainingPercentage, SecondaryUsagePacemakerPercentage, SecondaryUsagePacemakerDifferencePercentage);
 
     public string RefreshButtonToolTipText => _localizationService.GetLocalizedString("TaskbarUsageControl_RefreshButtonToolTip");
 
@@ -135,7 +136,7 @@ public sealed partial class TaskbarUsageControlViewModel : ObservableObject, IDi
 
     private void SetPrimaryUsage(ProviderUsageWindow providerUsageWindow)
     {
-        var hasUsagePercentage = TryGetUsagePercentages(providerUsageWindow, s_primaryUsageWindowDuration, out var remainingPercentage, out var pacemakerPercentage, out var pacemakerDifferencePercentage);
+        var hasUsagePercentage = UsagePacemakerHelper.TryGetUsagePercentages(providerUsageWindow, s_primaryUsageWindowDuration, out var remainingPercentage, out var pacemakerPercentage, out var pacemakerDifferencePercentage);
         HasPrimaryUsagePercentage = hasUsagePercentage;
         PrimaryUsageRemainingPercentage = remainingPercentage;
         PrimaryUsagePacemakerPercentage = pacemakerPercentage;
@@ -144,7 +145,7 @@ public sealed partial class TaskbarUsageControlViewModel : ObservableObject, IDi
 
     private void SetSecondaryUsage(ProviderUsageWindow providerUsageWindow)
     {
-        var hasUsagePercentage = TryGetUsagePercentages(providerUsageWindow, s_secondaryUsageWindowDuration, out var remainingPercentage, out var pacemakerPercentage, out var pacemakerDifferencePercentage);
+        var hasUsagePercentage = UsagePacemakerHelper.TryGetUsagePercentages(providerUsageWindow, s_secondaryUsageWindowDuration, out var remainingPercentage, out var pacemakerPercentage, out var pacemakerDifferencePercentage);
         HasSecondaryUsagePercentage = hasUsagePercentage;
         SecondaryUsageRemainingPercentage = remainingPercentage;
         SecondaryUsagePacemakerPercentage = pacemakerPercentage;
@@ -195,36 +196,4 @@ public sealed partial class TaskbarUsageControlViewModel : ObservableObject, IDi
 
     private string FormatUsageDifferencePercentage(bool hasUsagePercentage, int usagePercentage) => hasUsagePercentage ? _localizationService.GetFormattedString("TaskbarUsageControl_PercentageDifferenceFormat", Math.Clamp(usagePercentage, -100, 100)) : _localizationService.GetLocalizedString("TaskbarUsageControl_UnknownPercentageText");
 
-    private static int GetRemainingProgressBarZIndex(int remainingPercentage, int pacemakerPercentage, int pacemakerDifferencePercentage) => pacemakerDifferencePercentage < 0 || pacemakerDifferencePercentage == 0 && remainingPercentage <= pacemakerPercentage ? 1 : 0;
-
-    private static int GetPacemakerProgressBarZIndex(int remainingPercentage, int pacemakerPercentage, int pacemakerDifferencePercentage) => pacemakerDifferencePercentage > 0 || pacemakerDifferencePercentage == 0 && pacemakerPercentage < remainingPercentage ? 1 : 0;
-
-    private static bool TryGetUsagePercentages(ProviderUsageWindow providerUsageWindow, TimeSpan usageWindowDuration, out int remainingPercentage, out int pacemakerPercentage, out int pacemakerDifferencePercentage)
-    {
-        remainingPercentage = 0;
-        pacemakerPercentage = 0;
-        pacemakerDifferencePercentage = 0;
-
-        if (providerUsageWindow is null || providerUsageWindow.RemainingPercentage < 0 || providerUsageWindow.ResetAfterSeconds < 0) return false;
-        if (usageWindowDuration <= TimeSpan.Zero) return false;
-
-        remainingPercentage = Math.Clamp(providerUsageWindow.RemainingPercentage, 0, 100);
-        var pacemakerRemainingPercentage = Math.Clamp((TimeSpan.FromSeconds(providerUsageWindow.ResetAfterSeconds).TotalSeconds / usageWindowDuration.TotalSeconds) * 100.0, 0.0, 100.0);
-        pacemakerPercentage = Convert.ToInt32(Math.Round(pacemakerRemainingPercentage, MidpointRounding.AwayFromZero));
-        pacemakerDifferencePercentage = CalculateUsagePacemakerDifferencePercentage(providerUsageWindow, remainingPercentage, usageWindowDuration);
-        return true;
-    }
-
-    private static int CalculateUsagePacemakerDifferencePercentage(ProviderUsageWindow providerUsageWindow, int remainingPercentage, TimeSpan usageWindowDuration)
-    {
-        var usedPercentage = providerUsageWindow.UsedPercentage is >= 0 and <= 100 ? providerUsageWindow.UsedPercentage : 100 - remainingPercentage;
-        var elapsedDuration = usageWindowDuration - TimeSpan.FromSeconds(providerUsageWindow.ResetAfterSeconds);
-        if (elapsedDuration < TimeSpan.Zero) elapsedDuration = TimeSpan.Zero;
-
-        var averagePaceUsedPercentage = Math.Clamp((elapsedDuration.TotalSeconds / usageWindowDuration.TotalSeconds) * 100.0, 0.0, 100.0);
-        var usageAverageRateDifferencePercentage = usedPercentage - averagePaceUsedPercentage;
-        if (usageAverageRateDifferencePercentage > 0) return -Convert.ToInt32(Math.Ceiling(usageAverageRateDifferencePercentage));
-        if (usageAverageRateDifferencePercentage < 0) return Convert.ToInt32(Math.Ceiling(-usageAverageRateDifferencePercentage));
-        return 0;
-    }
 }

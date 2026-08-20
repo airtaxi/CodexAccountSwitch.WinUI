@@ -18,24 +18,20 @@
                 <ResourceDictionary x:Key="Light">
                     <Color x:Key="ThemeColor">#FFFFFF</Color>
                     <Color x:Key="ReverseThemeColor">#000000</Color>
-                    <SolidColorBrush x:Key="UsageNormalProgressBarForegroundBrush" Color="{ThemeResource SystemAccentColor}" />
                     <SolidColorBrush x:Key="UsageWarningLimitBadgeBackgroundBrush" Color="#FDE7E9" />
                     <SolidColorBrush x:Key="UsageWarningLimitBadgeForegroundBrush" Color="#A4262C" />
                     <SolidColorBrush x:Key="UsageWarningProgressBarForegroundBrush" Color="#C42B1C" />
                     <SolidColorBrush x:Key="UsageAverageRateNormalTextBrush" Color="#107C10" />
-                    <SolidColorBrush x:Key="UsageAverageRateWarningProgressBarForegroundBrush" Color="#8B0000" />
                     <SolidColorBrush x:Key="UsageAverageRateWarningTextBrush" Color="#8B0000" />
                     <SolidColorBrush x:Key="TaskbarUsageNeutralForegroundBrush" Color="#707070" />
                 </ResourceDictionary>
                 <ResourceDictionary x:Key="Dark">
                     <Color x:Key="ThemeColor">#000000</Color>
                     <Color x:Key="ReverseThemeColor">#FFFFFF</Color>
-                    <SolidColorBrush x:Key="UsageNormalProgressBarForegroundBrush" Color="{ThemeResource SystemAccentColor}" />
                     <SolidColorBrush x:Key="UsageWarningLimitBadgeBackgroundBrush" Color="#5A1F20" />
                     <SolidColorBrush x:Key="UsageWarningLimitBadgeForegroundBrush" Color="#FFDAD6" />
                     <SolidColorBrush x:Key="UsageWarningProgressBarForegroundBrush" Color="#FF9A9A" />
                     <SolidColorBrush x:Key="UsageAverageRateNormalTextBrush" Color="#6CCB5F" />
-                    <SolidColorBrush x:Key="UsageAverageRateWarningProgressBarForegroundBrush" Color="#FF6A6A" />
                     <SolidColorBrush x:Key="UsageAverageRateWarningTextBrush" Color="#FF6A6A" />
                     <SolidColorBrush x:Key="TaskbarUsageNeutralForegroundBrush" Color="#9A9A9A" />
                 </ResourceDictionary>
@@ -56,10 +52,6 @@
                 x:Key="UsageLimitBadgeForegroundBrushConverter"
                 FalseValue="{ThemeResource TextFillColorPrimaryBrush}"
                 TrueValue="{ThemeResource UsageWarningLimitBadgeForegroundBrush}" />
-            <converters:BoolToObjectConverter
-                x:Key="UsageProgressBarForegroundBrushConverter"
-                FalseValue="{ThemeResource UsageNormalProgressBarForegroundBrush}"
-                TrueValue="{ThemeResource UsageWarningProgressBarForegroundBrush}" />
             <converters:BoolToObjectConverter
                 x:Key="UsagePacemakerForegroundBrushConverter"
                 FalseValue="{ThemeResource UsageAverageRateNormalTextBrush}"

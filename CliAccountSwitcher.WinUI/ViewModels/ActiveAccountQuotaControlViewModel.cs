@@ -1,4 +1,5 @@
-﻿using CliAccountSwitcher.WinUI.Models;
+﻿using CliAccountSwitcher.WinUI.Helpers;
+using CliAccountSwitcher.WinUI.Models;
 using CliAccountSwitcher.WinUI.Services;
 using CliAccountSwitcher.WinUI.Views;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -59,6 +60,10 @@ public sealed partial class ActiveAccountQuotaControlViewModel(LocalizationServi
 
     public int ActiveAccountSecondaryUsageRemainingPercentage => DashboardViewModel?.ActiveAccountSecondaryUsageRemainingPercentage ?? 0;
 
+    public int ActiveAccountPrimaryUsagePacemakerPercentage => DashboardViewModel?.ActiveAccountPrimaryUsagePacemakerPercentage ?? 0;
+
+    public int ActiveAccountSecondaryUsagePacemakerPercentage => DashboardViewModel?.ActiveAccountSecondaryUsagePacemakerPercentage ?? 0;
+
     public string ActiveAccountPrimaryUsageResetText => FormatUsageReset(DashboardViewModel?.ActiveAccountPrimaryUsageResetAt);
 
     public string ActiveAccountSecondaryUsageResetText => FormatUsageReset(DashboardViewModel?.ActiveAccountSecondaryUsageResetAt);
@@ -80,6 +85,18 @@ public sealed partial class ActiveAccountQuotaControlViewModel(LocalizationServi
     public bool HasActiveAccountPrimaryUsageAverageRateLimitHeadroom => (DashboardViewModel?.ActiveAccountPrimaryUsageAverageRateLimitHeadroomPercentage ?? 0) > 0;
 
     public bool HasActiveAccountSecondaryUsageAverageRateLimitHeadroom => (DashboardViewModel?.ActiveAccountSecondaryUsageAverageRateLimitHeadroomPercentage ?? 0) > 0;
+
+    public bool IsActiveAccountPrimaryUsageBelowPacemaker => (DashboardViewModel?.ActiveAccountPrimaryUsagePacemakerDifferencePercentage ?? 0) < 0;
+
+    public bool IsActiveAccountSecondaryUsageBelowPacemaker => (DashboardViewModel?.ActiveAccountSecondaryUsagePacemakerDifferencePercentage ?? 0) < 0;
+
+    public int ActiveAccountPrimaryUsageRemainingProgressBarZIndex => UsagePacemakerHelper.GetRemainingProgressBarZIndex(ActiveAccountPrimaryUsageRemainingPercentage, DashboardViewModel?.ActiveAccountPrimaryUsagePacemakerPercentage ?? 0, DashboardViewModel?.ActiveAccountPrimaryUsagePacemakerDifferencePercentage ?? 0);
+
+    public int ActiveAccountPrimaryUsagePacemakerProgressBarZIndex => UsagePacemakerHelper.GetPacemakerProgressBarZIndex(ActiveAccountPrimaryUsageRemainingPercentage, DashboardViewModel?.ActiveAccountPrimaryUsagePacemakerPercentage ?? 0, DashboardViewModel?.ActiveAccountPrimaryUsagePacemakerDifferencePercentage ?? 0);
+
+    public int ActiveAccountSecondaryUsageRemainingProgressBarZIndex => UsagePacemakerHelper.GetRemainingProgressBarZIndex(ActiveAccountSecondaryUsageRemainingPercentage, DashboardViewModel?.ActiveAccountSecondaryUsagePacemakerPercentage ?? 0, DashboardViewModel?.ActiveAccountSecondaryUsagePacemakerDifferencePercentage ?? 0);
+
+    public int ActiveAccountSecondaryUsagePacemakerProgressBarZIndex => UsagePacemakerHelper.GetPacemakerProgressBarZIndex(ActiveAccountSecondaryUsageRemainingPercentage, DashboardViewModel?.ActiveAccountSecondaryUsagePacemakerPercentage ?? 0, DashboardViewModel?.ActiveAccountSecondaryUsagePacemakerDifferencePercentage ?? 0);
 
     public string ActiveAccountPrimaryUsageAverageRateStatusText => FormatUsageAverageRateStatus(DashboardViewModel?.ActiveAccountPrimaryUsageAverageRateLimitExceededPercentage ?? 0, DashboardViewModel?.ActiveAccountPrimaryUsageAverageRateLimitHeadroomPercentage ?? 0);
 
@@ -135,8 +152,16 @@ public sealed partial class ActiveAccountQuotaControlViewModel(LocalizationServi
         OnPropertyChanged(nameof(IsActiveAccountSecondaryUsageAtAverageRateLimit));
         OnPropertyChanged(nameof(HasActiveAccountPrimaryUsageAverageRateLimitHeadroom));
         OnPropertyChanged(nameof(HasActiveAccountSecondaryUsageAverageRateLimitHeadroom));
+        OnPropertyChanged(nameof(IsActiveAccountPrimaryUsageBelowPacemaker));
+        OnPropertyChanged(nameof(IsActiveAccountSecondaryUsageBelowPacemaker));
+        OnPropertyChanged(nameof(ActiveAccountPrimaryUsageRemainingProgressBarZIndex));
+        OnPropertyChanged(nameof(ActiveAccountPrimaryUsagePacemakerProgressBarZIndex));
+        OnPropertyChanged(nameof(ActiveAccountSecondaryUsageRemainingProgressBarZIndex));
+        OnPropertyChanged(nameof(ActiveAccountSecondaryUsagePacemakerProgressBarZIndex));
         OnPropertyChanged(nameof(ActiveAccountPrimaryUsageAverageRateStatusText));
         OnPropertyChanged(nameof(ActiveAccountSecondaryUsageAverageRateStatusText));
+        OnPropertyChanged(nameof(ActiveAccountPrimaryUsagePacemakerPercentage));
+        OnPropertyChanged(nameof(ActiveAccountSecondaryUsagePacemakerPercentage));
     }
 
     private string FormatUsageReset(DateTimeOffset? usageResetTime)

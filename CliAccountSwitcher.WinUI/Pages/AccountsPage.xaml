@@ -382,14 +382,15 @@
                                             </Grid>
                                             <Grid>
                                                 <ProgressBar
-                                                    Foreground="{x:Bind IsPrimaryUsageUnderWarningThreshold, Mode=OneWay, Converter={StaticResource UsageProgressBarForegroundBrushConverter}}"
+                                                    Canvas.ZIndex="{x:Bind PrimaryUsageRemainingProgressBarZIndex, Mode=OneWay}"
+                                                    Foreground="{ThemeResource ReverseThemeColor}"
                                                     Maximum="100"
                                                     Value="{x:Bind PrimaryUsageRemainingPercentage, Mode=OneWay}" />
                                                 <ProgressBar
-                                                    Foreground="{ThemeResource UsageAverageRateWarningProgressBarForegroundBrush}"
+                                                    Canvas.ZIndex="{x:Bind PrimaryUsagePacemakerProgressBarZIndex, Mode=OneWay}"
+                                                    Foreground="{x:Bind IsPrimaryUsageBelowPacemaker, Mode=OneWay, Converter={StaticResource UsagePacemakerForegroundBrushConverter}}"
                                                     Maximum="100"
-                                                    Visibility="{x:Bind IsPrimaryUsageOverAverageRateLimit, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}"
-                                                    Value="{x:Bind PrimaryUsageRemainingPercentage, Mode=OneWay}" />
+                                                    Value="{x:Bind PrimaryUsagePacemakerPercentage, Mode=OneWay}" />
                                             </Grid>
                                             <TextBlock
                                                 FontSize="12"
@@ -451,14 +452,15 @@
                                             </Grid>
                                             <Grid>
                                                 <ProgressBar
-                                                    Foreground="{x:Bind IsSecondaryUsageUnderWarningThreshold, Mode=OneWay, Converter={StaticResource UsageProgressBarForegroundBrushConverter}}"
+                                                    Canvas.ZIndex="{x:Bind SecondaryUsageRemainingProgressBarZIndex, Mode=OneWay}"
+                                                    Foreground="{ThemeResource ReverseThemeColor}"
                                                     Maximum="100"
                                                     Value="{x:Bind SecondaryUsageRemainingPercentage, Mode=OneWay}" />
                                                 <ProgressBar
-                                                    Foreground="{ThemeResource UsageAverageRateWarningProgressBarForegroundBrush}"
+                                                    Canvas.ZIndex="{x:Bind SecondaryUsagePacemakerProgressBarZIndex, Mode=OneWay}"
+                                                    Foreground="{x:Bind IsSecondaryUsageBelowPacemaker, Mode=OneWay, Converter={StaticResource UsagePacemakerForegroundBrushConverter}}"
                                                     Maximum="100"
-                                                    Visibility="{x:Bind IsSecondaryUsageOverAverageRateLimit, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}"
-                                                    Value="{x:Bind SecondaryUsageRemainingPercentage, Mode=OneWay}" />
+                                                    Value="{x:Bind SecondaryUsagePacemakerPercentage, Mode=OneWay}" />
                                             </Grid>
                                             <TextBlock
                                                 FontSize="12"
@@ -522,14 +524,15 @@
                                             </Grid>
                                             <Grid>
                                                 <ProgressBar
-                                                    Foreground="{x:Bind IsMonthlyUsageUnderWarningThreshold, Mode=OneWay, Converter={StaticResource UsageProgressBarForegroundBrushConverter}}"
+                                                    Canvas.ZIndex="{x:Bind MonthlyUsageRemainingProgressBarZIndex, Mode=OneWay}"
+                                                    Foreground="{ThemeResource ReverseThemeColor}"
                                                     Maximum="100"
                                                     Value="{x:Bind MonthlyUsageRemainingPercentage, Mode=OneWay}" />
                                                 <ProgressBar
-                                                    Foreground="{ThemeResource UsageAverageRateWarningProgressBarForegroundBrush}"
+                                                    Canvas.ZIndex="{x:Bind MonthlyUsagePacemakerProgressBarZIndex, Mode=OneWay}"
+                                                    Foreground="{x:Bind IsMonthlyUsageBelowPacemaker, Mode=OneWay, Converter={StaticResource UsagePacemakerForegroundBrushConverter}}"
                                                     Maximum="100"
-                                                    Visibility="{x:Bind IsMonthlyUsageOverAverageRateLimit, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}"
-                                                    Value="{x:Bind MonthlyUsageRemainingPercentage, Mode=OneWay}" />
+                                                    Value="{x:Bind MonthlyUsagePacemakerPercentage, Mode=OneWay}" />
                                             </Grid>
                                             <TextBlock
                                                 FontSize="12"

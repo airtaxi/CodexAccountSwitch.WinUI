@@ -1,4 +1,5 @@
 using CliAccountSwitcher.Api.Providers.Abstractions;
+using CliAccountSwitcher.WinUI.Helpers;
 using CliAccountSwitcher.WinUI.Models;
 using CliAccountSwitcher.WinUI.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -85,6 +86,26 @@ public sealed partial class ProviderAccountViewModel(ProviderAccount providerAcc
 
     public bool IsSecondaryUsageOverAverageRateLimit => SecondaryUsageAverageRateLimitExceededPercentage > 0;
 
+    public int PrimaryUsagePacemakerPercentage => GetUsagePacemakerPercentage(ProviderUsageSnapshot.FiveHour, s_primaryUsageWindowDuration);
+
+    public int SecondaryUsagePacemakerPercentage => GetUsagePacemakerPercentage(ProviderUsageSnapshot.SevenDay, s_secondaryUsageWindowDuration);
+
+    public int PrimaryUsagePacemakerDifferencePercentage => GetUsagePacemakerDifferencePercentage(ProviderUsageSnapshot.FiveHour, s_primaryUsageWindowDuration);
+
+    public int SecondaryUsagePacemakerDifferencePercentage => GetUsagePacemakerDifferencePercentage(ProviderUsageSnapshot.SevenDay, s_secondaryUsageWindowDuration);
+
+    public bool IsPrimaryUsageBelowPacemaker => PrimaryUsagePacemakerDifferencePercentage < 0;
+
+    public bool IsSecondaryUsageBelowPacemaker => SecondaryUsagePacemakerDifferencePercentage < 0;
+
+    public int PrimaryUsageRemainingProgressBarZIndex => UsagePacemakerHelper.GetRemainingProgressBarZIndex(PrimaryUsageRemainingPercentage, PrimaryUsagePacemakerPercentage, PrimaryUsagePacemakerDifferencePercentage);
+
+    public int PrimaryUsagePacemakerProgressBarZIndex => UsagePacemakerHelper.GetPacemakerProgressBarZIndex(PrimaryUsageRemainingPercentage, PrimaryUsagePacemakerPercentage, PrimaryUsagePacemakerDifferencePercentage);
+
+    public int SecondaryUsageRemainingProgressBarZIndex => UsagePacemakerHelper.GetRemainingProgressBarZIndex(SecondaryUsageRemainingPercentage, SecondaryUsagePacemakerPercentage, SecondaryUsagePacemakerDifferencePercentage);
+
+    public int SecondaryUsagePacemakerProgressBarZIndex => UsagePacemakerHelper.GetPacemakerProgressBarZIndex(SecondaryUsageRemainingPercentage, SecondaryUsagePacemakerPercentage, SecondaryUsagePacemakerDifferencePercentage);
+
     public int PrimaryUsageAverageRateLimitExceededPercentage => CalculateUsageAverageRateLimitExceededPercentage(ProviderUsageSnapshot.FiveHour, s_primaryUsageWindowDuration, s_primaryUsageAverageUnitDuration);
 
     public int SecondaryUsageAverageRateLimitExceededPercentage => CalculateUsageAverageRateLimitExceededPercentage(ProviderUsageSnapshot.SevenDay, s_secondaryUsageWindowDuration, s_secondaryUsageAverageUnitDuration);
@@ -118,6 +139,16 @@ public sealed partial class ProviderAccountViewModel(ProviderAccount providerAcc
     public bool IsMonthlyUsageUnderWarningThreshold => IsUsageUnderWarningThreshold(ProviderUsageSnapshot.Monthly, _applicationSettings.SecondaryUsageWarningThresholdPercentage);
 
     public bool IsMonthlyUsageOverAverageRateLimit => MonthlyUsageAverageRateLimitExceededPercentage > 0;
+
+    public int MonthlyUsagePacemakerPercentage => GetUsagePacemakerPercentage(ProviderUsageSnapshot.Monthly, s_monthlyUsageWindowDuration);
+
+    public int MonthlyUsagePacemakerDifferencePercentage => GetUsagePacemakerDifferencePercentage(ProviderUsageSnapshot.Monthly, s_monthlyUsageWindowDuration);
+
+    public bool IsMonthlyUsageBelowPacemaker => MonthlyUsagePacemakerDifferencePercentage < 0;
+
+    public int MonthlyUsageRemainingProgressBarZIndex => UsagePacemakerHelper.GetRemainingProgressBarZIndex(MonthlyUsageRemainingPercentage, MonthlyUsagePacemakerPercentage, MonthlyUsagePacemakerDifferencePercentage);
+
+    public int MonthlyUsagePacemakerProgressBarZIndex => UsagePacemakerHelper.GetPacemakerProgressBarZIndex(MonthlyUsageRemainingPercentage, MonthlyUsagePacemakerPercentage, MonthlyUsagePacemakerDifferencePercentage);
 
     public int MonthlyUsageAverageRateLimitExceededPercentage => CalculateUsageAverageRateLimitExceededPercentage(ProviderUsageSnapshot.Monthly, s_monthlyUsageWindowDuration, s_monthlyUsageAverageUnitDuration);
 
@@ -176,6 +207,16 @@ public sealed partial class ProviderAccountViewModel(ProviderAccount providerAcc
         OnPropertyChanged(nameof(IsSecondaryUsageUnderWarningThreshold));
         OnPropertyChanged(nameof(IsPrimaryUsageOverAverageRateLimit));
         OnPropertyChanged(nameof(IsSecondaryUsageOverAverageRateLimit));
+        OnPropertyChanged(nameof(PrimaryUsagePacemakerPercentage));
+        OnPropertyChanged(nameof(SecondaryUsagePacemakerPercentage));
+        OnPropertyChanged(nameof(PrimaryUsagePacemakerDifferencePercentage));
+        OnPropertyChanged(nameof(SecondaryUsagePacemakerDifferencePercentage));
+        OnPropertyChanged(nameof(IsPrimaryUsageBelowPacemaker));
+        OnPropertyChanged(nameof(IsSecondaryUsageBelowPacemaker));
+        OnPropertyChanged(nameof(PrimaryUsageRemainingProgressBarZIndex));
+        OnPropertyChanged(nameof(PrimaryUsagePacemakerProgressBarZIndex));
+        OnPropertyChanged(nameof(SecondaryUsageRemainingProgressBarZIndex));
+        OnPropertyChanged(nameof(SecondaryUsagePacemakerProgressBarZIndex));
         OnPropertyChanged(nameof(PrimaryUsageAverageRateLimitExceededPercentage));
         OnPropertyChanged(nameof(SecondaryUsageAverageRateLimitExceededPercentage));
         OnPropertyChanged(nameof(PrimaryUsageAverageRateLimitHeadroomPercentage));
@@ -198,6 +239,11 @@ public sealed partial class ProviderAccountViewModel(ProviderAccount providerAcc
         OnPropertyChanged(nameof(IsMonthlyUsageAtAverageRateLimit));
         OnPropertyChanged(nameof(HasMonthlyUsageAverageRateLimitHeadroom));
         OnPropertyChanged(nameof(MonthlyUsageAverageRateStatusText));
+        OnPropertyChanged(nameof(MonthlyUsagePacemakerPercentage));
+        OnPropertyChanged(nameof(MonthlyUsagePacemakerDifferencePercentage));
+        OnPropertyChanged(nameof(IsMonthlyUsageBelowPacemaker));
+        OnPropertyChanged(nameof(MonthlyUsageRemainingProgressBarZIndex));
+        OnPropertyChanged(nameof(MonthlyUsagePacemakerProgressBarZIndex));
         OnPropertyChanged(nameof(LastUsageRefreshText));
         OnPropertyChanged(nameof(SearchText));
         OnPropertyChanged(nameof(CanRename));
@@ -260,6 +306,10 @@ public sealed partial class ProviderAccountViewModel(ProviderAccount providerAcc
     }
 
     private static ProviderUsageSnapshot GetProviderUsageSnapshot(ProviderAccount providerAccount) => providerAccount.LastProviderUsageSnapshot ?? new ProviderUsageSnapshot { ProviderKind = providerAccount.ProviderKind };
+
+    private static int GetUsagePacemakerPercentage(ProviderUsageWindow providerUsageWindow, TimeSpan usageWindowDuration) => UsagePacemakerHelper.TryGetUsagePercentages(providerUsageWindow, usageWindowDuration, out _, out var pacemakerPercentage, out _) ? pacemakerPercentage : 0;
+
+    private static int GetUsagePacemakerDifferencePercentage(ProviderUsageWindow providerUsageWindow, TimeSpan usageWindowDuration) => UsagePacemakerHelper.TryGetUsagePercentages(providerUsageWindow, usageWindowDuration, out _, out _, out var pacemakerDifferencePercentage) ? pacemakerDifferencePercentage : 0;
 
     private static int ClampUsageRemainingPercentage(ProviderUsageWindow providerUsageWindow) => providerUsageWindow.RemainingPercentage < 0 ? 0 : Math.Clamp(providerUsageWindow.RemainingPercentage, 0, 100);
 

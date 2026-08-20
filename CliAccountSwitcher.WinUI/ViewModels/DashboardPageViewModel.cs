@@ -119,6 +119,18 @@ public sealed partial class DashboardPageViewModel : ObservableObject, IDisposab
     public partial int ActiveAccountSecondaryUsageAverageRateLimitHeadroomPercentage { get; set; }
 
     [ObservableProperty]
+    public partial int ActiveAccountPrimaryUsagePacemakerPercentage { get; set; }
+
+    [ObservableProperty]
+    public partial int ActiveAccountSecondaryUsagePacemakerPercentage { get; set; }
+
+    [ObservableProperty]
+    public partial int ActiveAccountPrimaryUsagePacemakerDifferencePercentage { get; set; }
+
+    [ObservableProperty]
+    public partial int ActiveAccountSecondaryUsagePacemakerDifferencePercentage { get; set; }
+
+    [ObservableProperty]
     public partial bool HasLowUsageAccounts { get; set; }
 
     [ObservableProperty]
@@ -243,6 +255,10 @@ public sealed partial class DashboardPageViewModel : ObservableObject, IDisposab
         ActiveAccountSecondaryUsageAverageRateLimitExceededPercentage = activeAccountViewModel?.SecondaryUsageAverageRateLimitExceededPercentage ?? 0;
         ActiveAccountPrimaryUsageAverageRateLimitHeadroomPercentage = activeAccountViewModel?.PrimaryUsageAverageRateLimitHeadroomPercentage ?? 0;
         ActiveAccountSecondaryUsageAverageRateLimitHeadroomPercentage = activeAccountViewModel?.SecondaryUsageAverageRateLimitHeadroomPercentage ?? 0;
+        ActiveAccountPrimaryUsagePacemakerPercentage = activeAccountViewModel?.PrimaryUsagePacemakerPercentage ?? 0;
+        ActiveAccountSecondaryUsagePacemakerPercentage = activeAccountViewModel?.SecondaryUsagePacemakerPercentage ?? 0;
+        ActiveAccountPrimaryUsagePacemakerDifferencePercentage = activeAccountViewModel?.PrimaryUsagePacemakerDifferencePercentage ?? 0;
+        ActiveAccountSecondaryUsagePacemakerDifferencePercentage = activeAccountViewModel?.SecondaryUsagePacemakerDifferencePercentage ?? 0;
     }
 
     private void SetLowUsageAccounts(IReadOnlyList<ProviderAccountViewModel> accountViewModels)
