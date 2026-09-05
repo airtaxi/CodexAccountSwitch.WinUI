@@ -10,7 +10,9 @@ namespace CliAccountSwitcher.WinUI.Controls;
 public sealed partial class TaskbarUsageControl : UserControl, IDisposable
 {
     private const double RefreshButtonVisibilityWidthOffset = 26;
-    private const double CompactHeightThreshold = 40;
+    private const double CompactHeightThreshold = 48;
+    private const double RootGridDefaultRowSpacing = 4;
+    private const double RootGridCompactRowSpacing = 2;
 
     private static readonly Thickness s_rootButtonDefaultMargin = new(4);
     private static readonly Thickness s_rootButtonDefaultPadding = new(4);
@@ -40,13 +42,14 @@ public sealed partial class TaskbarUsageControl : UserControl, IDisposable
 
     private void OnRootButtonClicked(object sender, RoutedEventArgs e) => MainWindow.ShowActiveAccountQuotaPopup();
 
-    private void OnRootButtonSizeChanged(object sender, SizeChangedEventArgs e)
+    private void OnSizeChanged(object sender, SizeChangedEventArgs e)
     {
-        if (sender is not Button rootButton) return;
+        if (sender is not UserControl usageControl) return;
 
-        var isCompact = rootButton.ActualHeight < CompactHeightThreshold;
-        rootButton.Margin = isCompact ? s_rootButtonCompactMargin : s_rootButtonDefaultMargin;
-        rootButton.Padding = isCompact ? s_rootButtonCompactPadding : s_rootButtonDefaultPadding;
+        var isCompact = usageControl.ActualHeight < CompactHeightThreshold;
+        RootButton.Margin = isCompact ? s_rootButtonCompactMargin : s_rootButtonDefaultMargin;
+        RootButton.Padding = isCompact ? s_rootButtonCompactPadding : s_rootButtonDefaultPadding;
+        RootGrid.RowSpacing = isCompact ? RootGridCompactRowSpacing : RootGridDefaultRowSpacing;
     }
 
     private void OnButtonGridSizeChanged(object sender, SizeChangedEventArgs e)

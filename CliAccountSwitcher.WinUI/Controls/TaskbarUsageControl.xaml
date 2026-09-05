@@ -10,6 +10,7 @@
     d:DesignWidth="250"
     CornerRadius="4"
     Loaded="OnTaskbarUsageControlLoaded"
+    SizeChanged="OnSizeChanged"
     mc:Ignorable="d">
 
     <Button
@@ -21,8 +22,7 @@
         HorizontalContentAlignment="Stretch"
         Background="Transparent"
         BorderBrush="Transparent"
-        Click="OnRootButtonClicked"
-        SizeChanged="OnRootButtonSizeChanged">
+        Click="OnRootButtonClicked">
         <Grid
             x:Name="RootGrid"
             HorizontalAlignment="Stretch"
