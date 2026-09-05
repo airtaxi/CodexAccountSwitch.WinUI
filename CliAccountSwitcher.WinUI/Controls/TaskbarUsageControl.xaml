@@ -21,7 +21,8 @@
         HorizontalContentAlignment="Stretch"
         Background="Transparent"
         BorderBrush="Transparent"
-        Click="OnRootButtonClicked">
+        Click="OnRootButtonClicked"
+        SizeChanged="OnRootButtonSizeChanged">
         <Grid
             x:Name="RootGrid"
             HorizontalAlignment="Stretch"
