@@ -22,8 +22,6 @@ public static partial class TaskbarHelper
 
     public static TaskbarPosition GetTaskbarPosition()
     {
-        if (IsTaskbarContentHostSupported) return TaskbarPosition.Bottom;
-
         var appBarData = GetAppBarData();
         return appBarData.EdgeIdentifier switch
         {
