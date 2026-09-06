@@ -7,6 +7,7 @@
     xmlns:dev="using:DevWinUI"
     xmlns:local="using:CliAccountSwitcher.WinUI.Pages"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:seg="using:CliAccountSwitcher.WinUI.ThirdParty.SelectorBarSegmented"
     xmlns:viewModels="using:CliAccountSwitcher.WinUI.ViewModels"
     DataContext="{x:Bind ViewModel}"
     Loaded="OnAccountsPageLoaded"
@@ -115,7 +116,7 @@
                 Text="{x:Bind ViewModel.SearchText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
             <Grid Grid.Column="1">
-                <dev:SelectorBarSegmented
+                <seg:SelectorBarSegmented
                     x:Name="CodexPlanFilterSelectorBar"
                     SelectedItem="{x:Bind CodexAllPlanFilterSelectorBarItem}"
                     SelectionChanged="OnPlanFilterSelectorBarSelectionChanged"
@@ -129,9 +130,9 @@
                     <SelectorBarItem x:Uid="AccountsPage_TeamPlanFilterSelectorBarItem" Tag="team" />
                     <SelectorBarItem x:Uid="AccountsPage_ProLitePlanFilterSelectorBarItem" Tag="prolite" />
                     <SelectorBarItem x:Uid="AccountsPage_ProPlanFilterSelectorBarItem" Tag="pro" />
-                </dev:SelectorBarSegmented>
+                </seg:SelectorBarSegmented>
 
-                <dev:SelectorBarSegmented
+                <seg:SelectorBarSegmented
                     x:Name="ClaudeCodePlanFilterSelectorBar"
                     SelectedItem="{x:Bind ClaudeCodeAllPlanFilterSelectorBarItem}"
                     SelectionChanged="OnPlanFilterSelectorBarSelectionChanged"
@@ -145,9 +146,9 @@
                     <SelectorBarItem x:Uid="AccountsPage_ClaudeCodeEnterprisePlanFilterSelectorBarItem" Tag="Enterprise" />
                     <SelectorBarItem x:Uid="AccountsPage_ClaudeCodeMax5xPlanFilterSelectorBarItem" Tag="Max 5x" />
                     <SelectorBarItem x:Uid="AccountsPage_ClaudeCodeMax20xPlanFilterSelectorBarItem" Tag="Max 20x" />
-                </dev:SelectorBarSegmented>
+                </seg:SelectorBarSegmented>
 
-                <dev:SelectorBarSegmented
+                <seg:SelectorBarSegmented
                     x:Name="ZaiPlanFilterSelectorBar"
                     SelectedItem="{x:Bind ZaiAllPlanFilterSelectorBarItem}"
                     SelectionChanged="OnPlanFilterSelectorBarSelectionChanged"
@@ -159,7 +160,7 @@
                     <SelectorBarItem x:Uid="AccountsPage_ZaiLitePlanFilterSelectorBarItem" Tag="lite" />
                     <SelectorBarItem x:Uid="AccountsPage_ZaiProPlanFilterSelectorBarItem" Tag="pro" />
                     <SelectorBarItem x:Uid="AccountsPage_ZaiMaxPlanFilterSelectorBarItem" Tag="max" />
-                </dev:SelectorBarSegmented>
+                </seg:SelectorBarSegmented>
 
             </Grid>
         </Grid>

@@ -7,6 +7,7 @@
     xmlns:dev="using:DevWinUI"
     xmlns:local="using:CliAccountSwitcher.WinUI.Dialogs"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:seg="using:CliAccountSwitcher.WinUI.ThirdParty.SelectorBarSegmented"
     x:Uid="AddAccountDialog"
     Closing="OnAddAccountDialogClosing"
     DefaultButton="Close"
@@ -24,7 +25,7 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <dev:SelectorBarSegmented
+        <seg:SelectorBarSegmented
             x:Name="AddAccountModeSelectorBar"
             Grid.Row="0"
             HorizontalAlignment="Center"
@@ -37,7 +38,7 @@
             <SelectorBarItem x:Uid="AddAccountDialog_ManualPasteSelectorBarItem" Tag="ManualPaste" />
             <SelectorBarItem x:Uid="AddAccountDialog_CurrentAccountSelectorBarItem" Tag="CurrentAccount" />
             <SelectorBarItem x:Uid="AddAccountDialog_FileSelectorBarItem" Tag="File" />
-        </dev:SelectorBarSegmented>
+        </seg:SelectorBarSegmented>
 
         <Frame
             x:Name="AddAccountContentFrame"

@@ -4,13 +4,16 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:converters="using:CommunityToolkit.WinUI.Converters"
-    xmlns:local="using:CliAccountSwitcher.WinUI">
+    xmlns:local="using:CliAccountSwitcher.WinUI"
+    xmlns:seg="using:CliAccountSwitcher.WinUI.ThirdParty.SelectorBarSegmented">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <XamlControlsResources xmlns="using:Microsoft.UI.Xaml.Controls" />
                 <!--  Other merged dictionaries here  -->
                 <ResourceDictionary Source="ms-appx:///DevWinUI.Controls/Themes/Generic.xaml" />
+
+                <seg:SelectorBarSegmentedDictionary />
             </ResourceDictionary.MergedDictionaries>
 
             <!--  Other app resources here  -->

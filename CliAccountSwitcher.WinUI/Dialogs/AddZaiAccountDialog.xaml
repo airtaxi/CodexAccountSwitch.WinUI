@@ -6,6 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:dev="using:DevWinUI"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:seg="using:CliAccountSwitcher.WinUI.ThirdParty.SelectorBarSegmented"
     x:Uid="AddZaiAccountDialog"
     Closing="OnAddZaiAccountDialogClosing"
     DefaultButton="Close"
@@ -23,7 +24,7 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <dev:SelectorBarSegmented
+        <seg:SelectorBarSegmented
             x:Name="AddAccountModeSelectorBar"
             Grid.Row="0"
             HorizontalAlignment="Center"
@@ -37,7 +38,7 @@
                 x:Name="ApiKeySelectorBarItem"
                 x:Uid="AddZaiAccountDialog_ApiKeySelectorBarItem"
                 Tag="ApiKey" />
-        </dev:SelectorBarSegmented>
+        </seg:SelectorBarSegmented>
 
         <Frame
             x:Name="AddAccountContentFrame"
