@@ -1,4 +1,4 @@
-using Microsoft.UI.Xaml;
+﻿using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 
 namespace CliAccountSwitcher.WinUI.ThirdParty.SelectorBarSegmented;
@@ -8,7 +8,7 @@ namespace CliAccountSwitcher.WinUI.ThirdParty.SelectorBarSegmented;
 /// instead of the default underline indicator.
 /// </summary>
 [TemplatePart(Name = PART_ItemsView, Type = typeof(ItemsView))]
-public class SelectorBarSegmented : SelectorBar
+public partial class SelectorBarSegmented : SelectorBar
 {
     private const string PART_ItemsView = "PART_ItemsView";
 

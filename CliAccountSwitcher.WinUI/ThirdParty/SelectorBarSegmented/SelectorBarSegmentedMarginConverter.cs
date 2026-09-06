@@ -1,4 +1,4 @@
-using Microsoft.UI.Xaml;
+﻿using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Data;
 
@@ -8,7 +8,7 @@ namespace CliAccountSwitcher.WinUI.ThirdParty.SelectorBarSegmented;
 /// Converts a segmented item's position (first, middle, last) into the hover margin applied to
 /// its pill highlight so the end items keep their rounded corners visible.
 /// </summary>
-public class SelectorBarSegmentedMarginConverter : DependencyObject, IValueConverter
+public partial class SelectorBarSegmentedMarginConverter : DependencyObject, IValueConverter
 {
     /// <summary>
     /// Identifies the <see cref="LeftItemMargin"/> property.
